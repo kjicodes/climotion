@@ -1,4 +1,4 @@
-# Climotion
+# Climotion API
 
 <img src="media/climotion-screenshot.png" alt="Climotion" width="600"/>
 
@@ -27,45 +27,18 @@ A weather-aware workout planner for registered users. Enter a city to get curren
 
 ---
 
-## Running Locally
-
-1. Clone the repo and create a virtual environment
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate
-   ```
-
-2. Install dependencies
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Create a `.env` file in the project root
-   ```
-   SECRET_KEY=your_django_secret_key
-   OPENWEATHER_API_KEY=your_openweathermap_key
-   OPENWEATHER_BASE_URL=https://api.openweathermap.org/data/2.5/weather
-   GEOCODING_BASE_URL=http://api.openweathermap.org/geo/1.0/direct
-   ```
-
-4. Run the development server
-   ```bash
-   python manage.py runserver
-   ```
-
-5. Visit api endpoints
+## API Endpoints
 
    **Public**
-   - `GET /weather/?city=London`
-   - `GET /searched-cities/`
-   - `POST /users/` - register
-   - `POST /api/token/` - login
-   - `POST /api/token/refresh/` - refresh access token
+   - `GET /api/weather/?city=London` - retrieves current weather conditions for a given city
+   - `GET /api/searched-cities/` - retrieves a list of previously searched cities
+   - `POST /api/users/` - registers a new user
+   - `POST /api/token/` - authenticates a user and receives a JWT access token
    
    **Authenticated**
-   - `GET /workouts/?exercise-type=cardio&difficulty=beginner`
-   - `GET/POST /saved-workouts/`
-   - `GET/PATCH/DELETE /saved-workouts/<id>/`
+   - `GET /api/workouts/?exercise-type=strength&difficulty=beginner&muscle-group=upper` - retrieves a list of exercises filtered by type, difficulty, and target muscle group
+   - `GET/POST /api/saved-workouts/` - retrieves saved workouts or saves a new one with before/after workout reflection notes
+   - `GET/PATCH/DELETE /api/saved-workouts/<id>/` - retrieves, updates, or deletes a specific saved workout
 
 ---
 
