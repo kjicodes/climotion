@@ -4,8 +4,6 @@
 
 A weather-aware workout planner for registered users. Enter a city to get current weather conditions and a recommendation on whether to work out indoors or outdoors. Create an account to get personalized exercise recommendations and save workouts with reflection notes.
 
----
-
 ## Tech Stack
 
 - **Backend:** Python, Django, Django REST Framework, JWT (Simple JWT)
@@ -13,8 +11,6 @@ A weather-aware workout planner for registered users. Enter a city to get curren
 - **Database:** SQLite (development)
 - **APIs:** OpenWeatherMap API, API Ninjas Exercises API
 - **Testing:** Postman
-
----
 
 ## Features
 
@@ -24,8 +20,6 @@ A weather-aware workout planner for registered users. Enter a city to get curren
 - Personalized exercise recommendations based on workout type, difficulty, and target muscle groups (authenticated users only)                                                                  
 - Save, view, update, and delete workouts with before and after reflection notes (authenticated users only)
 - Previously searched cities saved for quick access
-
----
 
 ## API Endpoints
 
@@ -39,8 +33,6 @@ A weather-aware workout planner for registered users. Enter a city to get curren
    - `GET /api/workouts/?exercise-type=strength&difficulty=beginner&muscle-group=upper` - retrieves a list of exercises filtered by type, difficulty, and target muscle group
    - `GET/POST /api/saved-workouts/` - retrieves saved workouts or saves a new one with before/after workout reflection notes
    - `GET/PATCH/DELETE /api/saved-workouts/<id>/` - retrieves, updates, or deletes a specific saved workout
-
----
 
 ## Roadmap
 
