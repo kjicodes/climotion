@@ -83,8 +83,10 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'climotion.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    os.getenv('FRONTEND_URL', ''),
+  origin for origin in [
+      "http://localhost:3000",
+      os.getenv('FRONTEND_URL', ''),
+  ] if origin
 ]
 
 TEMPLATES = [
