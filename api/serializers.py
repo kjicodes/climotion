@@ -1,7 +1,7 @@
 import re
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from api.models import SearchedCity, SavedWorkout
+from api.models import SearchedCity, SavedWorkout, AIWorkoutRecommendation
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,6 +31,12 @@ class SearchedCitySerializer(serializers.ModelSerializer):
     class Meta:
         model = SearchedCity
         fields = ["id", "city_name"]
+
+
+class AIWorkoutRecommendationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AIWorkoutRecommendation
+        fields = ["id", "weather_condition", "temperature", "recommendation"]
 
 
 class SavedWorkoutSerializer(serializers.ModelSerializer):
