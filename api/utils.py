@@ -2,6 +2,7 @@ import requests
 import random
 import json
 from django.conf import settings
+from google import genai
 
 
 UPPER_MUSCLES = ["abdominals", "biceps", "chest", "lats", "lower_back", "middle_back", "traps", "triceps"]
@@ -12,38 +13,26 @@ MUSCLE_GROUPS = {
     "full": UPPER_MUSCLES + LOWER_MUSCLES,
 }
 
-MIN_TEMP_CELSIUS = 5
-BAD_WEATHER_CONDITIONS = {
-    "drizzle": "It's not quite raining, but it's not not raining either — "
-               "that sneaky mist that somehow soaks you without warning. "
-               "Skip the guessing game and take your workout inside today.",
-    "rain": "It's basically a free car wash out there — "
-            "slippery, soggy, and not great for a run. "
-            "Best to take your workout inside today.",
-    "snow": "A winter wonderland is pretty to look at from a warm window. "
-            "Lace up indoors and let the snowflakes do their thing without you. "
-            "An indoor workout is the move today.",
-    "thunderstorm": "Thunder means lightning is nearby, and lightning means "
-                    "you should absolutely not be the tallest thing in an open field. "
-                    "Head inside for your workout today."
-}
 
+#Initialize Gemini
+client = genai.Client(api_key=settings.GOOGLE_GEMINI_API_KEY)
 
+def generate_workout_recommendation(condition, temp):
+    """Have AI evaluate weather conditions and temperature to return an indoor or outdoor workout recommendation."""
 
-def get_workout_suggestion(weather):
-    """Evaluate weather conditions and temperature to return an indoor or outdoor workout recommendation."""
-
-    description = weather["weather"][0]["main"].lower()
-    temp = weather["main"]["feels_like"]
-    for condition, message in BAD_WEATHER_CONDITIONS.items():
-        if condition in description:
-            return message
-
-    if temp < MIN_TEMP_CELSIUS:
-        return ("It feels cold out there — not ideal for breaking a sweat outside. "
-                "An indoor workout is the way to go today.")
-
-    return "The weather looks good — perfect conditions for an outdoor workout!"
+    prompt = f"""You are a weather assistant for a fitness app. 
+            Given the weather condition '{condition}' and a temperature of {temp}°C,
+            write a 2-3 sentence weather description in a casual, slightly witty tone.
+            You may only reference the weather condition and temperature. 
+            Do not mention any other weather details such as high, low, humidity, or wind speed.
+            Ensure each sentence is on the shorter end.
+            End with a recommendation to work out indoors or outdoors based on the conditions.
+            Return only the description as plain text with no extra formatting, labels, or commentary."""
+    response = client.models.generate_content(
+        model="gemini-3.1-flash-lite",
+        contents=prompt
+    )
+    return response.text
 
 
 def get_weather(city):
@@ -76,14 +65,14 @@ def get_weather(city):
     celsius_conversion = 273.15
     forecast = {
         'city': city.capitalize(),
-        'weather': weather_data["weather"][0]['main'],
-        'description': get_workout_suggestion(weather_data),
+        'condition': weather_data["weather"][0]['main'],
+        'description': '',
         'temperature': int(weather_data["main"]["temp"] - celsius_conversion),
         'feels_like': int(weather_data["main"]["feels_like"] - celsius_conversion),
         'low': int(weather_data["main"]["temp_min"] - celsius_conversion),
         'high': int(weather_data["main"]["temp_max"] - celsius_conversion)
     }
-
+    # print(f"Forecast before db check: {forecast}")
     return forecast
 
 def get_exercises(exercise_type, difficulty, muscle_groups: list=None):

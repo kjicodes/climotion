@@ -13,6 +13,17 @@ class SearchedCity(models.Model):
         return self.city_name.capitalize()
 
 
+class AIWorkoutRecommendation(models.Model):
+    weather_condition = models.CharField(unique=True, max_length=100, blank=False)
+    temperature = models.IntegerField(default=0)
+    recommendation = models.TextField(blank=False)
+
+    class Meta:
+        verbose_name = "AI Workout Recommendation"
+        verbose_name_plural = "AI Workout Recommendations"
+
+
+
 class SavedWorkout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     exercise_type = models.CharField(max_length=100, blank=False)
