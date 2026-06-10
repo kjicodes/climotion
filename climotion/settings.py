@@ -30,6 +30,7 @@ EXERCISES_API_KEY = os.getenv('EXERCISES_API_KEY')
 OPENWEATHER_BASE_URL = os.getenv('OPENWEATHER_BASE_URL')
 GEOCODING_BASE_URL = os.getenv('GEOCODING_BASE_URL')
 EXERCISES_BASE_URL = os.getenv('EXERCISES_BASE_URL')
+GOOGLE_GEMINI_API_KEY = os.getenv('GOOGLE_GEMINI_API_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -147,3 +148,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
