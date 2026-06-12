@@ -7,13 +7,13 @@ A weather-aware workout planner for registered users. Enter a city to get curren
 - **Backend:** Python, Django, Django REST Framework, JWT (Simple JWT)
 - **Frontend:** React, Tailwind CSS — see [climotion-frontend](https://github.com/kjicodes/climotion-frontend)
 - **Database:** SQLite (development)
-- **APIs:** OpenWeatherMap API, API Ninjas Exercises API
+- **APIs:** OpenWeatherMap API, API Ninjas Exercises API, Google Gemini API
 - **Testing:** Postman
 
 ## Features
 
 - City-based weather lookup with current conditions, temperature, and daily high/low
-- Indoor or outdoor workout recommendation based on live weather and temperature
+- AI-generated weather description and indoor/outdoor workout recommendation powered by Google Gemini, cached per unique weather condition and temperature combination
 - User registration and login with JWT authentication
 - Personalized exercise recommendations based on workout type, difficulty, and target muscle groups (authenticated users only)                                                                  
 - Save, view, update, and delete workouts with before and after reflection notes (authenticated users only)
@@ -41,4 +41,5 @@ A weather-aware workout planner for registered users. Enter a city to get curren
 - [x] Searched Cities - save frequently searched cities
 - [x] Saved Workouts - save and revisit previously generated workouts
 - [x] User authentication
+- [x] Replaced hard-coded weather descriptions with AI-generated descriptions via Google Gemini
 - [ ] React frontend — in progress, see [climotion-frontend](https://github.com/kjicodes/climotion-frontend)
