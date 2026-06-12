@@ -23,8 +23,8 @@ def generate_workout_recommendation(condition, temp):
     prompt = f"""You are a weather assistant for a fitness app. 
             Given the weather condition '{condition}' and a temperature of {temp}°C,
             write a 2-3 sentence weather description in a casual, slightly witty tone.
-            You may only reference the weather condition. 
-            Do not mention any other weather details such as temperature, high, low, humidity, or wind speed.
+            You may describe how hot or cold it feels, but do not mention any specific temperature values or numbers.
+            Do not mention any other weather details such as humidity, or wind speed.
             Ensure each sentence is on the shorter end.
             End with a recommendation to work out indoors or outdoors based on the conditions.
             Return only the description as plain text with no extra formatting, labels, or commentary."""
