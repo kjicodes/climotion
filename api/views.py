@@ -57,12 +57,12 @@ class WeatherView(APIView):
             response = { "error": "Weather data unavailable. Please try again later."}
             return Response(response, status=HTTP_503_SERVICE_UNAVAILABLE)
 
-        #check if description for given condition is in the db
+        #check if description for given condition + temp is in the db
         #if so, add description to forecast obj
         #if not, call Gemini API to generate new weather description/workout recommendation, save it to the db, and add it to the forecast obj
         weather_condition = forecast["condition"]
         temperature = forecast["temperature"]
-        existing_recommendation = AIWorkoutRecommendation.objects.filter(weather_condition=weather_condition).first()
+        existing_recommendation = AIWorkoutRecommendation.objects.filter(weather_condition=weather_condition, temperature=temperature).first()
 
         if existing_recommendation:
             forecast["description"] = existing_recommendation.recommendation

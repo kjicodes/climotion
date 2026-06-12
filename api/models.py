@@ -14,14 +14,15 @@ class SearchedCity(models.Model):
 
 
 class AIWorkoutRecommendation(models.Model):
-    weather_condition = models.CharField(unique=True, max_length=100, blank=False)
+    weather_condition = models.CharField(max_length=100, blank=False)
     temperature = models.IntegerField(default=0)
     recommendation = models.TextField(blank=False)
 
     class Meta:
+        unique_together = ('weather_condition', 'temperature')
+        index_together = ('weather_condition', 'temperature')
         verbose_name = "AI Workout Recommendation"
         verbose_name_plural = "AI Workout Recommendations"
-
 
 
 class SavedWorkout(models.Model):
