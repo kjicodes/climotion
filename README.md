@@ -4,9 +4,8 @@ A weather-aware workout planner for registered users. Enter a city to get curren
 
 ## Tech Stack
 
-- **Backend:** Python, Django, Django REST Framework, JWT (Simple JWT)
+- **Backend:** Python, Django, Django REST Framework, PostgreSQL, JWT (Simple JWT)
 - **Frontend:** React, Tailwind CSS — see [climotion-frontend](https://github.com/kjicodes/climotion-frontend)
-- **Database:** SQLite (development)
 - **APIs:** OpenWeatherMap API, API Ninjas Exercises API, Google Gemini API
 - **Testing:** Postman
 
@@ -18,6 +17,30 @@ A weather-aware workout planner for registered users. Enter a city to get curren
 - Personalized exercise recommendations based on workout type, difficulty, and target muscle groups (authenticated users only)                                                                  
 - Save, view, update, and delete workouts with before and after reflection notes (authenticated users only)
 - Previously searched cities saved for quick access
+
+## Local Setup
+
+1. Install dependencies: `pip install -r requirements.txt`
+
+2. Create a `.env` file in the project root:
+   ```
+   SECRET_KEY=
+   DEBUG=True
+   ALLOWED_HOSTS=localhost,127.0.0.1
+   DATABASE_URL=postgres://localhost:5432/climotion
+   OPENWEATHER_API_KEY=
+   OPENWEATHER_BASE_URL=https://api.openweathermap.org/data/2.5/weather
+   GEOCODING_BASE_URL=http://api.openweathermap.org/geo/1.0/direct
+   EXERCISES_API_KEY=
+   EXERCISES_BASE_URL=https://api.api-ninjas.com/v1/exercises
+   GOOGLE_GEMINI_API_KEY=
+   ```
+
+3. Create a local PostgreSQL database named `climotion`, then run:
+   ```bash
+   python manage.py migrate
+   python manage.py runserver
+   ```
 
 ## API Endpoints
 
