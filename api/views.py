@@ -6,7 +6,8 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from api.serializers import SearchedCitySerializer, SavedWorkoutSerializer, UserSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from api.serializers import SearchedCitySerializer, SavedWorkoutSerializer, UserSerializer, CustomTokenObtainPairSerializer
 from api.models import SearchedCity, SavedWorkout, AIWorkoutRecommendation
 from api.utils import get_weather, get_exercises, MUSCLE_GROUPS, generate_workout_recommendation
 
@@ -37,6 +38,11 @@ class UserViewSet(ModelViewSet):
     def get_queryset(self):
         user = User.objects.filter(id=self.request.user.id)
         return user
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
+
 
 class WeatherView(APIView):
     """Returns current weather condition and either an indoor or outdoor workout recommendation for a given city."""

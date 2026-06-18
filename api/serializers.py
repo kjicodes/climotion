@@ -1,6 +1,7 @@
 import re
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from api.models import SearchedCity, SavedWorkout, AIWorkoutRecommendation
 
 
@@ -25,6 +26,16 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         new_user = User.objects.create_user(**validated_data)
         return new_user
+
+
+# customize SimpleJWT's token serializer to return user obj in response after user logs in
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        data = super().validate(attrs)
+
+        #add user obj from user serializer - includes first name, last name, & username
+        data["user"] = UserSerializer(self.user).data
+        return data
 
 
 class SearchedCitySerializer(serializers.ModelSerializer):
