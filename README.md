@@ -48,7 +48,7 @@ A weather-aware workout planner for registered users. Enter a city to get curren
    - `GET /api/weather/?city=London` - retrieves current weather conditions for a given city
    - `GET /api/searched-cities/` - retrieves a list of previously searched cities
    - `POST /api/users/` - registers a new user
-   - `POST /api/token/` - authenticates a user and receives a JWT access token
+   - `POST /api/token/` - logs in user
    
    **Authenticated**
    - `GET /api/workouts/?exercise-type=strength&difficulty=beginner&muscle-group=upper` - retrieves a list of exercises filtered by type, difficulty, and target muscle group
