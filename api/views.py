@@ -95,9 +95,9 @@ class WorkoutView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        exercise_type = request.query_params.get("exercise-type")
+        exercise_type = request.query_params.get("exercise_type")
         difficulty = request.query_params.get("difficulty")
-        muscle_group = request.query_params.get("muscle-group")
+        muscle_group = request.query_params.get("muscle_group")
         
         if not exercise_type:
             response = { "error": "Exercise type is required."}

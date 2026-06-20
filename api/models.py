@@ -27,8 +27,6 @@ class AIWorkoutRecommendation(models.Model):
 
 class SavedWorkout(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    exercise_type = models.CharField(max_length=100, blank=False)
-    difficulty = models.CharField(max_length=100, blank=False)
     workout = models.JSONField(blank=False)
     workout_reflection_before = models.TextField(max_length=250, blank=True)
     workout_reflection_after = models.TextField(max_length=250, blank=True)
