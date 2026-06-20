@@ -55,7 +55,7 @@ class SavedWorkoutSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SavedWorkout
-        fields = ["id", "user", "exercise_type", "difficulty", "workout", "workout_reflection_before", "workout_reflection_after", "workout_reflection", "created_at"]
+        fields = ["id", "user", "workout", "workout_reflection_before", "workout_reflection_after", "workout_reflection", "created_at"]
         extra_kwargs = {
             "user": {
                 "read_only": True
