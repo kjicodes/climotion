@@ -1,16 +1,22 @@
 from requests.exceptions import HTTPError
 from django.contrib.auth.models import User
+from django.middleware.csrf import get_token
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_201_CREATED, HTTP_404_NOT_FOUND, HTTP_503_SERVICE_UNAVAILABLE
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.views import TokenObtainPairView
-from api.serializers import SearchedCitySerializer, SavedWorkoutSerializer, UserSerializer, CustomTokenObtainPairSerializer
+from api.serializers import SearchedCitySerializer, SavedWorkoutSerializer, UserSerializer
 from api.models import SearchedCity, SavedWorkout, AIWorkoutRecommendation
 from api.utils import get_weather, get_exercises, MUSCLE_GROUPS, generate_workout_recommendation
 
+
+@api_view(["GET"])
+@permission_classes([AllowAny])
+def get_csrf_token(request):
+    return Response({"detail": get_token(request)})
 
 class UserViewSet(ModelViewSet):
     """Handles user registration and authentication."""
@@ -38,10 +44,6 @@ class UserViewSet(ModelViewSet):
     def get_queryset(self):
         user = User.objects.filter(id=self.request.user.id)
         return user
-
-
-class CustomTokenObtainPairView(TokenObtainPairView):
-    serializer_class = CustomTokenObtainPairSerializer
 
 
 class WeatherView(APIView):

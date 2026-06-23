@@ -16,12 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import CustomTokenObtainPairView
-from rest_framework_simplejwt.views import TokenRefreshView
+from api.views import get_csrf_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/auth/csrf/', get_csrf_token, name='csrf_token'),
+    path('api/auth/', include('dj_rest_auth.urls')),
     path('api/', include('api.urls')),
 ]
