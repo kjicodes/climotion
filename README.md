@@ -57,7 +57,10 @@ A weather-aware workout planner for registered users. Enter a city to get curren
 
 ## Roadmap
 
-[] AI-powered workout plan generation: upload a document describing your workout goals and get a personalized plan suggestion
-[] Export generated workout plans directly to Google Sheets
-[] Add Docker support for easier local setup and deployment
+[] AI-powered workout plan generation: upload a document describing your workout goals and get a personalized plan suggestion  
+
+[] Export generated workout plans directly to Google Sheets  
+
+[] Add Docker support for easier local setup and deployment  
+
 
