@@ -4,7 +4,7 @@ A weather-aware workout planner for registered users. Enter a city to get curren
 
 ## Tech Stack
 
-- **Backend:** Python, Django, Django REST Framework, PostgreSQL, JWT (Simple JWT)
+- **Backend:** Python, Django, Django REST Framework, PostgreSQL, JWT (Simple JWT + dj-rest-auth + httpOnly cookie-based)
 - **Frontend:** React, Tailwind CSS — see [climotion-frontend](https://github.com/kjicodes/climotion-frontend)
 - **APIs:** OpenWeatherMap API, API Ninjas Exercises API, Google Gemini API
 - **Testing:** Postman
@@ -13,7 +13,7 @@ A weather-aware workout planner for registered users. Enter a city to get curren
 
 - City-based weather lookup with current conditions, temperature, and daily high/low
 - AI-generated weather description and indoor/outdoor workout recommendation powered by Google Gemini, cached per unique weather condition and temperature combination
-- User registration and login with JWT authentication
+- User registration and login with httpOnly cookie-based JWT authentication (via dj-rest-auth) and CSRF protection
 - Personalized exercise recommendations based on workout type, difficulty, and target muscle groups (authenticated users only)                                                                  
 - Save, view, update, and delete workouts with before and after reflection notes (authenticated users only)
 - Previously searched cities saved for quick access
@@ -48,17 +48,19 @@ A weather-aware workout planner for registered users. Enter a city to get curren
    - `GET /api/weather/?city=London` - retrieves current weather conditions for a given city
    - `GET /api/searched-cities/` - retrieves a list of previously searched cities
    - `POST /api/users/` - registers a new user
-   - `POST /api/token/` - logs in user
    
    **Authenticated**
-   - `GET /api/workouts/?exercise_type=strength&difficulty=beginner&muscle_group=upper` - retrieves a list of exercises filtered by type, difficulty, and target muscle group
+   - `GET /api/workouts/?exercise_type=strength&difficulty=beginner&muscle_group=upper` - retrieves a list of exercises filtered by type, difficulty, and target muscle
+  group
    - `GET/POST /api/saved-workouts/` - retrieves saved workouts or saves a new one with before/after workout reflection notes
    - `GET/PATCH/DELETE /api/saved-workouts/<id>/` - retrieves, updates, or deletes a specific saved workout
 
+
 ## Roadmap
 
-[ ] AI-powered workout plan generation: upload a document describing your workout goals and get a personalized plan suggestion  
-[ ] Export generated workout plans directly to Google Sheets  
-[ ] Add Docker support for easier local setup and deployment   
+  - [ ] Social login (Google, etc.)
+  - [ ] AI-powered workout plan generation: upload a document describing your workout goals and get a personalized plan suggestion
+  - [ ] Export generated workout plans directly to Google Sheets
+  - [ ] Add Docker support for easier local setup and deployment
 
 
