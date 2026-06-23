@@ -51,18 +51,13 @@ A weather-aware workout planner for registered users. Enter a city to get curren
    - `POST /api/token/` - logs in user
    
    **Authenticated**
-   - `GET /api/workouts/?exercise-type=strength&difficulty=beginner&muscle-group=upper` - retrieves a list of exercises filtered by type, difficulty, and target muscle group
+   - `GET /api/workouts/?exercise_type=strength&difficulty=beginner&muscle_group=upper` - retrieves a list of exercises filtered by type, difficulty, and target muscle group
    - `GET/POST /api/saved-workouts/` - retrieves saved workouts or saves a new one with before/after workout reflection notes
    - `GET/PATCH/DELETE /api/saved-workouts/<id>/` - retrieves, updates, or deletes a specific saved workout
 
 ## Roadmap
 
-- [x] City-based weather lookup and indoor/outdoor workout recommendation
-- [x] Exercise recommendations by workout type and difficulty level
-- [x] Muscle group selector for strength training
-- [x] Migrate backend to Django REST Framework
-- [x] Searched Cities - save frequently searched cities
-- [x] Saved Workouts - save and revisit previously generated workouts
-- [x] User authentication
-- [x] Replaced hard-coded weather descriptions with AI-generated descriptions via Google Gemini
-- [ ] React frontend — in progress, see [climotion-frontend](https://github.com/kjicodes/climotion-frontend)
+[] AI-powered workout plan generation: upload a document describing your workout goals and get a personalized plan suggestion
+[] Export generated workout plans directly to Google Sheets
+[] Add Docker support for easier local setup and deployment
+
