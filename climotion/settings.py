@@ -50,18 +50,34 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
     'corsheaders',
     'api'
 ]
+
+REST_AUTH = {
+    'JWT_AUTH_COOKIE': 'climotion-access',
+    'JWT_AUTH_REFRESH_COOKIE': 'climotion-refresh',
+    'JWT_AUTH_HTTPONLY': True,
+    'JWT_AUTH_SAMESITE': 'Lax',
+    'JWT_AUTH_SECURE': not DEBUG,
+    'JWT_AUTH_COOKIE_USE_CSRF': True,
+    'USE_JWT': True,
+    'SESSION_LOGIN': False, #no layered session
+    'OLD_PASSWORD_FIELD_ENABLED': True,
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ),
 }
+
+CORS_ALLOW_CREDENTIALS = True
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
@@ -87,6 +103,13 @@ CORS_ALLOWED_ORIGINS = [
       "http://localhost:3000",
       os.getenv('FRONTEND_URL', ''),
   ] if origin
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    origin for origin in [
+        "http://localhost:3000",
+        os.getenv('FRONTEND_URL', ''),
+    ] if origin
 ]
 
 TEMPLATES = [
@@ -132,6 +155,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+    {
+        'NAME': 'api.validators.ComplexPasswordValidator',
     },
 ]
 

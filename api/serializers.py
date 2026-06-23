@@ -1,41 +1,53 @@
 import re
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework.validators import UniqueValidator
 from api.models import SearchedCity, SavedWorkout, AIWorkoutRecommendation
 
 
 class UserSerializer(serializers.ModelSerializer):
+    confirm_password = serializers.CharField(write_only=True, required=True)
+
     class Meta:
         model = User
-        fields = ["id", "first_name", "last_name", "username", "password"]
+        fields = ["id", "first_name", "last_name", "username", "email", "password", "confirm_password"]
         extra_kwargs = {
             "first_name": { "required": True },
             "last_name": { "required": True },
+            "email": {
+                "required": True,
+                "validators": [UniqueValidator(queryset=User.objects.all())],
+            },
             "password": {
                 "write_only": True,
                 "required": True
             }
         }
 
+    def validate_first_name(self, value):
+        if not re.match(r'^(?=.*[A-Za-z])[A-Za-z\s\-]+$', value):
+            raise serializers.ValidationError("First name must contain only letters.")
+        return value
+
+    def validate_last_name(self, value):
+        if not re.match(r'^(?=.*[A-Za-z])[A-Za-z\s\-]+$', value):
+            raise serializers.ValidationError("Last name must contain only letters.")
+        return value
+
     def validate_password(self, value):
         if not re.match(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$', value):
             raise serializers.ValidationError("Password must be at least 8 characters and contain an uppercase letter, lowercase letter, number, and special character (@$!%*?&).")
         return value
 
+    def validate(self, attrs):
+        if attrs["password"] != attrs["confirm_password"]:
+            raise serializers.ValidationError({"confirm_password": "Password does not match."})
+        return attrs
+
     def create(self, validated_data):
+        validated_data.pop("confirm_password")
         new_user = User.objects.create_user(**validated_data)
         return new_user
-
-
-# customize SimpleJWT's token serializer to return user obj in response after user logs in
-class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
-    def validate(self, attrs):
-        data = super().validate(attrs)
-
-        #add user obj from user serializer - includes first name, last name, & username
-        data["user"] = UserSerializer(self.user).data
-        return data
 
 
 class SearchedCitySerializer(serializers.ModelSerializer):
