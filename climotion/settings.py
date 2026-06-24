@@ -60,7 +60,7 @@ REST_AUTH = {
     'JWT_AUTH_COOKIE': 'climotion-access',
     'JWT_AUTH_REFRESH_COOKIE': 'climotion-refresh',
     'JWT_AUTH_HTTPONLY': True,
-    'JWT_AUTH_SAMESITE': 'Lax',
+    'JWT_AUTH_SAMESITE': 'None' if not DEBUG else 'Lax',
     'JWT_AUTH_SECURE': not DEBUG,
     'JWT_AUTH_COOKIE_USE_CSRF': True,
     'USE_JWT': True,
