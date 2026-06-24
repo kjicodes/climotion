@@ -112,6 +112,9 @@ CSRF_TRUSTED_ORIGINS = [
     ] if origin
 ]
 
+CSRF_COOKIE_SAMESITE = 'None' if not DEBUG else 'Lax'
+CSRF_COOKIE_SECURE = not DEBUG
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
