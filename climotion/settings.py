@@ -62,7 +62,7 @@ REST_AUTH = {
     'JWT_AUTH_HTTPONLY': True,
     'JWT_AUTH_SAMESITE': 'None' if not DEBUG else 'Lax',
     'JWT_AUTH_SECURE': not DEBUG,
-    'JWT_AUTH_COOKIE_USE_CSRF': True,
+    'JWT_AUTH_COOKIE_USE_CSRF': False,
     'USE_JWT': True,
     'SESSION_LOGIN': False, #no layered session
     'OLD_PASSWORD_FIELD_ENABLED': True,
@@ -74,6 +74,9 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
     ),
 }
 
