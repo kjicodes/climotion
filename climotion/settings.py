@@ -62,7 +62,7 @@ REST_AUTH = {
     'JWT_AUTH_HTTPONLY': True,
     'JWT_AUTH_SAMESITE': 'None' if not DEBUG else 'Lax',
     'JWT_AUTH_SECURE': not DEBUG,
-    'JWT_AUTH_COOKIE_USE_CSRF': False,
+    'JWT_AUTH_COOKIE_USE_CSRF': False, #using httpOnly cookies
     'USE_JWT': True,
     'SESSION_LOGIN': False, #no layered session
     'OLD_PASSWORD_FIELD_ENABLED': True,
@@ -142,6 +142,8 @@ WSGI_APPLICATION = 'climotion.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        ssl_require=not DEBUG,
     )
 }
 
